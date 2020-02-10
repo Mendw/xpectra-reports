@@ -105,3 +105,6 @@ dist
 
 # docs folder
 docs/
+
+# data file
+data.json

@@ -1,7 +1,8 @@
 import random
 import json
+import sys
 
-ROWS = 5
+ROWS = int(sys.argv[1]) if len(sys.argv) == 2 else 100
 STATES = ["AL", "AK", "AS", "AZ", "AR", "CA", "CO", "CT", "DE", "DC", "FM", "FL", "GA", "GU", "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MH", "MD", "MA", "MI", "MN", "MS",
           "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "MP", "OH", "OK", "OR", "PW", "PA", "PR", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VI", "VA", "WA", "WV", "WI", "WY"]
 F_NAMES = ['Gillan', 'Viv', 'Ketty', 'Cheryl', 'Cherin', 'Etti', 'Adriana', 'Jaquelyn', 'Elie', 'Wilhelmine', 'Mellie', 'Emelita', 'Van', 'Aeriela', 'Malva', 'Alvira', 'Heloise', 'Claire', 'Candide', 'Rowe', 'Em', 'Rachel', 'Denna', 'Alis', 'Lavena', 'Brynn', 'Beret', 'Mirabelle', 'Rae', 'Rosalia', 'Luella', 'Christalle', 'Darelle', 'Chrysa', 'Kyrstin', 'Odelinda', 'Brigida', 'Georgianna', 'Myra', 'Lucina', 'Jemie', 'Matty', 'Vannie', 'Janelle', 'Ibby', 'Cathe', 'Lorne', 'Tabbitha', 'Ora', 'Bella', 'Pammi', 'Bobina', 'Mandie', 'Zia', 'Agathe', 'Belicia', 'Sharlene', 'Sonny', 'Suzette', 'Lynnett', 'Judye', 'Gaby', 'Aurelie', 'Reina', 'Gertie', 'Iolanthe', 'Rana', 'Karlotta', 'Modestia', 'Gae', 'Lorie', 'Rebecca', 'Lynda', 'Bennie', 'Saundra', 'Rois', 'Tani', 'Julie', 'Anne-Corinne', 'Alvina', 'Remy', 'Janella', 'Ainsley', 'Karon', 'Berthe', 'Wallis', 'Katina', 'Austine', 'Anthea', 'Gwenny', 'Kimbra', 'Drusie', 'Daron', 'Raina', 'Anni', 'Marillin', 'Imojean', 'Kitty', 'Beitris', 'Katrinka',
@@ -32,6 +33,9 @@ COLUMNS = [
     }
 ]
 
+print("Generating {0} rows".format(ROWS))
 data = [{column['key']:column['generator']() for column in COLUMNS} for i in range(ROWS)]
 with open('data.json', 'w') as file:
     file.write(json.dumps(data))
+
+print("done")
