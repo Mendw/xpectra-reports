@@ -1,13 +1,13 @@
 <table>
     <tr>
         <% columns.forEach(column => { %>
-            <th><%= column.name %></th>
+            <th><%= column %></th>
         <% }) %>
     </tr>
     <% rows.forEach(row => { %>
         <tr>
             <% columns.forEach(column => { %>
-                <td><%= row[column.name] %></td>
+                <td><%= row[column] %></td>
             <% }) %>
         </tr>
     <% }) %>

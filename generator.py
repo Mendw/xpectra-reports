@@ -2,7 +2,13 @@ import random
 import json
 import sys
 
-ROWS = int(sys.argv[1]) if len(sys.argv) == 2 else 100
+ROWS = int(sys.argv[1]) if len(sys.argv) > 1 else 100
+FILENAME = sys.argv[2] if len(sys.argv) > 2 else "data"
+FILES = int(sys.argv[3]) if len(sys.argv) > 3 else 1
+
+if FILES < 1:
+    FILES = 1
+
 STATES = ["AL", "AK", "AS", "AZ", "AR", "CA", "CO", "CT", "DE", "DC", "FM", "FL", "GA", "GU", "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MH", "MD", "MA", "MI", "MN", "MS",
           "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "MP", "OH", "OK", "OR", "PW", "PA", "PR", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VI", "VA", "WA", "WV", "WI", "WY"]
 F_NAMES = ['Gillan', 'Viv', 'Ketty', 'Cheryl', 'Cherin', 'Etti', 'Adriana', 'Jaquelyn', 'Elie', 'Wilhelmine', 'Mellie', 'Emelita', 'Van', 'Aeriela', 'Malva', 'Alvira', 'Heloise', 'Claire', 'Candide', 'Rowe', 'Em', 'Rachel', 'Denna', 'Alis', 'Lavena', 'Brynn', 'Beret', 'Mirabelle', 'Rae', 'Rosalia', 'Luella', 'Christalle', 'Darelle', 'Chrysa', 'Kyrstin', 'Odelinda', 'Brigida', 'Georgianna', 'Myra', 'Lucina', 'Jemie', 'Matty', 'Vannie', 'Janelle', 'Ibby', 'Cathe', 'Lorne', 'Tabbitha', 'Ora', 'Bella', 'Pammi', 'Bobina', 'Mandie', 'Zia', 'Agathe', 'Belicia', 'Sharlene', 'Sonny', 'Suzette', 'Lynnett', 'Judye', 'Gaby', 'Aurelie', 'Reina', 'Gertie', 'Iolanthe', 'Rana', 'Karlotta', 'Modestia', 'Gae', 'Lorie', 'Rebecca', 'Lynda', 'Bennie', 'Saundra', 'Rois', 'Tani', 'Julie', 'Anne-Corinne', 'Alvina', 'Remy', 'Janella', 'Ainsley', 'Karon', 'Berthe', 'Wallis', 'Katina', 'Austine', 'Anthea', 'Gwenny', 'Kimbra', 'Drusie', 'Daron', 'Raina', 'Anni', 'Marillin', 'Imojean', 'Kitty', 'Beitris', 'Katrinka',
@@ -33,9 +39,20 @@ COLUMNS = [
     }
 ]
 
-print("Generating {0} rows".format(ROWS))
-data = [{column['key']:column['generator']() for column in COLUMNS} for i in range(ROWS)]
-with open('data.json', 'w') as file:
-    file.write(json.dumps(data))
+if FILES > 1:
+    print("Generating {0} rows across {1} files".format(ROWS, FILES))
+    for i in range(FILES):
+        data = [{column['key']:column['generator']() for column in COLUMNS}
+                for _ in range(ROWS)]
+        filename = "data/{0}_{1}.json".format(FILENAME, i)
+        with open(filename, 'w') as file:
+            file.write(json.dumps(data))
+        print("{0} done".format(filename))
+else:
+    print("Generating {0} rows, dumping to {1}".format(ROWS, FILENAME))
+    data = [{column['key']:column['generator']() for column in COLUMNS}
+            for _ in range(ROWS)]
+    with open("data/{0}.json".format(FILENAME), 'w') as file:
+        file.write(json.dumps(data))
 
-print("done")
+    print("done")
