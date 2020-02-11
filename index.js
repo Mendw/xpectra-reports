@@ -3,6 +3,10 @@ const async = require('asyncawait/async');
 const await = require('asyncawait/await');
 const fs = require('fs');
 const ejs = require('ejs');
+const merge = require('easy-pdf-merge');
+
+let exp = /.+\.pdf$/
+let docDir = './docs'
 
 const pool = createPhantomPool({
     max: 10,
@@ -15,14 +19,24 @@ const pool = createPhantomPool({
         //{logLevel: 'debug',}
     ],
 })
-let path_ = './data/'
+let dataDir = './data/'
 let filename = 'data'
 let files = ['0', '1', '2', '3', '4']
 let counter = 0
 
-console.time('it took')
+function merge_pdfs(pathArray, output) {
+    merge(pathArray, output, (err) => {
+        if (err)
+            return console.log(err)
+
+        console.timeEnd('merge took')
+        console.timeEnd('total')
+    })
+}
+console.time('total')
+console.time('initial generation took')
 files.forEach(file => {
-    fs.readFile(`${path_}${filename}_${file}.json`, 'utf-8', (err, data) => {
+    fs.readFile(`${dataDir}${filename}_${file}.json`, 'utf-8', (err, data) => {
         if (err)
             throw err;
 
@@ -57,7 +71,9 @@ files.forEach(file => {
                         console.log('#' + file + ' done')
                         if (++counter == files.length) {
                             pool.drain().then(() => pool.clear())
-                            console.timeEnd('it took')
+                            console.timeEnd('initial generation took')
+                            console.time('merge took')
+                            merge_pdfs(fs.readdirSync(docDir).filter(dirent => exp.test(dirent)).map(dirent => docDir + '/' + dirent), docDir + '/' + 'report.pdf')
                         }
                     })
 
