@@ -19,8 +19,8 @@ let data_files = fs.readdirSync(data_directory, 'utf-8')
 
 let counter = 0
 
-data_files.forEach(file => {
-    fs.readFile(file, (err, data) => {
+data_files.forEach(filename => {
+    fs.readFile(filename, (err, data) => {
         if (err) throw err;
 
         let users = JSON.parse(data);

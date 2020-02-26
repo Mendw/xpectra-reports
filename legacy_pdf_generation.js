@@ -2,7 +2,7 @@ const createPhantomPool = require('phantom-pool')           // agiliza el proces
 const async = require('asyncawait/async');                  // junto con await...
 const await = require('asyncawait/await');                  // ...permite trabajar con funciones asíncronas en Node 6 
 const fs = require('fs');                                   // permite trabajar con el sistema de archivos
-const ejs = require('ejs');                                 // permite renderizar plantillas para generar código HTML
+const ejs = require('ejs');                                 // permite generar codigo HTML en base a un plantilla y datos
 const merge = require('easy-pdf-merge');                    // permite combinar varios archivos .pdf 
 
 let temp_pdf_regex = /temp_.+\.pdf$/ 
@@ -40,9 +40,9 @@ function merge_pdfs(pathArray, output) { // recibe un arreglo de rutas relativas
 }
 
 // crea una lista de rutas relativas a archivos de datos
-let data_files = fs.readdirSync(data_directory)                 // lee el directorio de datos, creando una lista de nombres de archivos y carpetas
+let data_files = fs.readdirSync(data_directory, 'utf-8')        // lee el directorio de datos, creando una lista de nombres de archivos y carpetas
     .filter(filename => data_file_regex.test(filename))         // elimina todos los nombres que no cumplan con la expresión regular
-    .map(filename => `${data_directory}/${filename}`);          // crea rutas relativas en base al nombre de cada archivo
+    .map(  filename => `${data_directory}/${filename}`);        // crea rutas relativas en base al nombre de cada archivo
 
 // 
 data_files.forEach(filename => {                                // lee cada archivo del arreglo creado arriba
