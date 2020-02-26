@@ -44,7 +44,7 @@ let data_files = fs.readdirSync(data_directory, 'utf-8')        // lee el direct
     .filter(filename => data_file_regex.test(filename))         // elimina todos los nombres que no cumplan con la expresión regular
     .map(  filename => `${data_directory}/${filename}`);        // crea rutas relativas en base al nombre de cada archivo
 
-// 
+
 data_files.forEach(filename => {                                // lee cada archivo del arreglo creado arriba
     fs.readFile(filename, 'utf-8', (err, data) => {
         if (err) return console.error(err);
