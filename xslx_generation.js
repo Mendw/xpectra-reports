@@ -32,13 +32,13 @@ function main() {
 
     let path_ = './data/'
     let filename = 'data'
-    let files = ['0', '1', '2', '3', '4']
+    let files = fs.readdirSync('./data', 'utf-8')
     let counter = 0
     let flag = false
 
     console.timeEnd('startup')
     files.forEach(file => {
-        fs.readFile(`${path_}${filename}_${file}.json`, (err, data) => {
+        fs.readFile(`${path_}${file}`, (err, data) => {
             if (err) throw err;
 
             let users = JSON.parse(data);
