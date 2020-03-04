@@ -37,7 +37,7 @@ function render() {
                     page.property('content', data).then(() => {                 // añade el código HTML a la página
                         page.render('./docs/report.pdf').then(() => {           // renderiza
                             ph.exit()                                           // destruye la instancia de phantom
-                            cleanup()                                           // elimina el archivo temporal
+                            //cleanup()                                           // elimina el archivo temporal
                         })
                     })
                 })
