@@ -11,6 +11,11 @@
   "license": "ISC",
   "dependencies": {
     "@babel/polyfill": "^7.8.3",
+    "asyncawait": "^3.0.0",
+    "easy-pdf-merge": "^0.2.2",
+    "ejs": "^3.0.1",
+    "exceljs": "^2.0.1",
+    "phantom": "^6.3.0",
     "phantom-pool": "^1.2.2"
   }
 }
