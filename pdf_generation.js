@@ -47,10 +47,10 @@ function render() {
 }
 
 
-
-let data_files = fs.readdirSync(data_directory, 'utf-8')
-    .filter(filename => data_file_regex.test(filename))
-    .map(filename => `${data_directory}/${filename}`);
+// crea una lista de rutas relativas a archivos de datos
+let data_files = fs.readdirSync(data_directory, 'utf-8')        // lee el directorio de datos, creando una lista de nombres de archivos y carpetas
+    .filter(filename => data_file_regex.test(filename))         // elimina todos los nombres que no cumplan con la expresión regular
+    .map(filename => `${data_directory}/${filename}`);          // crea rutas relativas en base al nombre de cada archivo
 
 data_files.forEach(filename => {
     fs.readFile(filename, 'utf-8', (err, data) => {

@@ -29,8 +29,8 @@ const pool = createPhantomPool({    // configuración la 'pool' de instancias de
 })
 
 // combina los archivos temporales para crear el reporte final y luego elimina los archivos temporales.
-function merge_pdfs(pathArray, output) { // recibe un arreglo de rutas relativas a archivos .pdf y el nombre del archivo de salida
-    merge(pathArray, output, (err) => {  // usa la función merge de la librería 'easy-pdf-merge' para combinar los archivos
+function merge_pdfs(pathArray, output) {            // recibe un arreglo de rutas relativas a archivos .pdf y el nombre del archivo de salida
+    merge(pathArray, output, (err) => {             // usa la función merge de la librería 'easy-pdf-merge' para combinar los archivos
         if (err)
             return console.log(err)
 

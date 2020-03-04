@@ -27,7 +27,7 @@ data_files.forEach(filename => {                    // lee cada archivo de datos
             return console.error('JSON Parse Error or empty source File');
         }
 
-        if (sheet.columns == null) {                // si no se han agregado columnas la hoja, se extraen del arreglo de datos
+        if (sheet.columns == null) {                // si no se ha agregado el titulo de las columnas a la hoja, se obtienen del arreglo de datos
             let keys = Object.keys(users[0]), columns = []
             for (let i = 0; i < keys.length; i++) {
                 columns.push({
